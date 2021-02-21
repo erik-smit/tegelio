@@ -23,8 +23,8 @@ default_context:
   flower_auth: 'admin:f716139f9b4b804d253c6da2a3e765abf71da678081784bc04bd051be39663be'
   sentry_dsn: ''
   docker_image_prefix: 'tegelio'
-  docker_image_backend: 'backend'
-  docker_image_celeryworker: 'celeryworker'
-  docker_image_frontend: 'frontend'
+  docker_image_backend: 'tegelio_backend'
+  docker_image_celeryworker: 'tegelio_celeryworker'
+  docker_image_frontend: 'tegelio_frontend'
   _copy_without_render: [frontend/src/**/*.html, frontend/src/**/*.vue, frontend/node_modules/*, backend/app/app/email-templates/**]
   _template: ./
