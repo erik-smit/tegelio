@@ -29,6 +29,10 @@ export default new Router({
           component: () => import(/* webpackChunkName: "reset-password" */ './views/ResetPassword.vue'),
         },
         {
+          path: 'tegel-viewer',
+          component: () => import(/* webpackChunkName: "tegel-viewer" */ './views/TegelViewer.vue'),
+        },
+        {
           path: 'main',
           component: () => import(/* webpackChunkName: "main" */ './views/main/Main.vue'),
           children: [
