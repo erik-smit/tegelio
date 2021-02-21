@@ -24,6 +24,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { appName } from '@/env';
+import { dispatchGetWijsheid } from '@/store/main/actions';
 
 @Component
 export default class Login extends Vue {
@@ -34,7 +35,9 @@ export default class Login extends Vue {
 
   public refresh() {
     this.wijsheid = 'new wijsheid';
+    dispatchGetWijsheid(this.$store);
   }
+
 
 }
 </script>

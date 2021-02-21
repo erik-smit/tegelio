@@ -42,4 +42,7 @@ export const api = {
       token,
     });
   },
+  async getWijsheid() {
+    return axios.get<string>(`${apiUrl}/api/v1/wijsheden/`);
+  },
 };

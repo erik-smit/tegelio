@@ -12,6 +12,7 @@ import {
     commitSetLogInError,
     commitSetToken,
     commitSetUserProfile,
+    commitSetWijsheid,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 
@@ -43,6 +44,16 @@ export const actions = {
             const response = await api.getMe(context.state.token);
             if (response.data) {
                 commitSetUserProfile(context, response.data);
+            }
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
+        }
+    },
+    async actionGetWijsheid(context: MainContext) {
+        try {
+            const response = await api.getWijsheid();
+            if (response.data) {
+                commitSetWijsheid(context, response.data);
             }
         } catch (error) {
             await dispatchCheckApiError(context, error);
@@ -161,6 +172,7 @@ const { dispatch } = getStoreAccessors<MainState | any, State>('');
 export const dispatchCheckApiError = dispatch(actions.actionCheckApiError);
 export const dispatchCheckLoggedIn = dispatch(actions.actionCheckLoggedIn);
 export const dispatchGetUserProfile = dispatch(actions.actionGetUserProfile);
+export const dispatchGetWijsheid = dispatch(actions.actionGetWijsheid);
 export const dispatchLogIn = dispatch(actions.actionLogIn);
 export const dispatchLogOut = dispatch(actions.actionLogOut);
 export const dispatchUserLogOut = dispatch(actions.actionUserLogOut);
