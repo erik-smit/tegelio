@@ -8,7 +8,7 @@
               <v-toolbar-title>{{appName}} - Viewer</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
-              <p class="subheading">{{wijsheid}}</p>
+              <p class="subheading">{{currentWijsheid.content}}</p>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -22,22 +22,51 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { appName } from '@/env';
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
+import { AppWijsheid } from '@/store/main/state';
+import { commitRemoveNotification } from '@/store/main/mutations';
+import { readWijsheid } from '@/store/main/getters';
 import { dispatchGetWijsheid } from '@/store/main/actions';
+import { dispatchRemoveNotification } from '@/store/main/actions';
+
+import { appName } from '@/env';
+
 
 @Component
 export default class Login extends Vue {
   public valid = true;
   public username: string = '';
   public appName = appName;
-  public wijsheid: string = 'loading wijsheid';
+  public currentWijsheid: AppWijsheid = { content: 'TegelViewer.vue wijsheid'};
 
   public refresh() {
-    this.wijsheid = 'new wijsheid';
     dispatchGetWijsheid(this.$store);
   }
 
+    public get firstWijsheid() {
+        return readWijsheid(this.$store);
+    }
+
+    public async setWijsheid(wijsheid: AppWijsheid | false) {
+        if (wijsheid) {
+            this.currentWijsheid = wijsheid;
+        } else {
+            this.currentWijsheid = false;
+        }
+    }
+
+    @Watch('Wijsheid')
+    public async onWijsheidChange(
+        newWijsheid: AppWijsheid | false,
+        oldWijsheid: AppWijsheid | false,
+    ) {
+        if (newWijsheid !== this.currentWijsheid) {
+            await this.setWijsheid(newWijsheid);
+            if (newWijsheid) {
+                // dispatchRemoveNotification(this.$store, { notification: newNotification, timeout: 6500 });
+            }
+        }
+    }
 
 }
 </script>

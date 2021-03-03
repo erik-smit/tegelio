@@ -18,7 +18,7 @@ export const mutations = {
         state.userProfile = payload;
     },
     setWijsheid(state: MainState, payload: string) {
-        state.wijsheid = payload;
+        state.wijsheid.content = payload;
     },
     setDashboardMiniDrawer(state: MainState, payload: boolean) {
         state.dashboardMiniDrawer = payload;

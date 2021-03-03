@@ -11,7 +11,7 @@ const defaultState: MainState = {
   dashboardMiniDrawer: false,
   dashboardShowDrawer: true,
   notifications: [],
-  wijsheid: '',
+  wijsheid: { content: 'default wijsheid'},
 };
 
 export const mainModule = {

@@ -6,6 +6,10 @@ export interface AppNotification {
     showProgress?: boolean;
 }
 
+export interface AppWijsheid {
+    content: string;
+}
+
 export interface MainState {
     token: string;
     isLoggedIn: boolean | null;
@@ -14,5 +18,5 @@ export interface MainState {
     dashboardMiniDrawer: boolean;
     dashboardShowDrawer: boolean;
     notifications: AppNotification[];
-    wijsheid: string;
+    wijsheid: AppWijsheid;
 }
