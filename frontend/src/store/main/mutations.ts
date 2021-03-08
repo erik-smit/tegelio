@@ -1,4 +1,4 @@
-import { IUserProfile } from '@/interfaces';
+import { IUserProfile, IWijsheid } from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
 import { State } from '../state';
@@ -17,8 +17,8 @@ export const mutations = {
     setUserProfile(state: MainState, payload: IUserProfile) {
         state.userProfile = payload;
     },
-    setWijsheid(state: MainState, payload: string) {
-        state.wijsheid.content = payload;
+    setWijsheid(state: MainState, payload: IWijsheid) {
+        state.wijsheid.content = payload.msg;
     },
     setDashboardMiniDrawer(state: MainState, payload: boolean) {
         state.dashboardMiniDrawer = payload;

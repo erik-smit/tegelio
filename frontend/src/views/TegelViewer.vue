@@ -41,6 +41,7 @@ export default class Login extends Vue {
 
   public refresh() {
     dispatchGetWijsheid(this.$store);
+    //this.currentWijsheid = { content: "loading new wijsheid" };
   }
 
     public get firstWijsheid() {
@@ -51,21 +52,14 @@ export default class Login extends Vue {
         if (wijsheid) {
             this.currentWijsheid = wijsheid;
         } else {
-            this.currentWijsheid = false;
+            this.currentWijsheid = { content: '' };
         }
     }
 
-    @Watch('Wijsheid')
-    public async onWijsheidChange(
-        newWijsheid: AppWijsheid | false,
-        oldWijsheid: AppWijsheid | false,
-    ) {
-        if (newWijsheid !== this.currentWijsheid) {
-            await this.setWijsheid(newWijsheid);
-            if (newWijsheid) {
-                // dispatchRemoveNotification(this.$store, { notification: newNotification, timeout: 6500 });
-            }
-        }
+    @Watch('firstWijsheid')
+    public async onWijsheidChange(Wijsheid: AppWijsheid) {
+        // await this.setWijsheid(Wijsheid);
+        this.currentWijsheid = Wijsheid;
     }
 
 }

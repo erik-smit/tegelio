@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiUrl } from '@/env';
-import { IUserProfile, IUserProfileUpdate, IUserProfileCreate } from './interfaces';
+import { IUserProfile, IUserProfileUpdate, IUserProfileCreate, IWijsheid } from './interfaces';
 
 function authHeaders(token: string) {
   return {
@@ -43,6 +43,6 @@ export const api = {
     });
   },
   async getWijsheid() {
-    return axios.get<string>(`${apiUrl}/api/v1/wijsheden/`);
+    return axios.get<IWijsheid>(`${apiUrl}/api/v1/wijsheden/`);
   },
 };
