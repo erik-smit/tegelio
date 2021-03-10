@@ -24,10 +24,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { AppWijsheid } from '@/store/main/state';
-import { commitRemoveNotification } from '@/store/main/mutations';
 import { readWijsheid } from '@/store/main/getters';
 import { dispatchGetWijsheid } from '@/store/main/actions';
-import { dispatchRemoveNotification } from '@/store/main/actions';
 
 import { appName } from '@/env';
 
@@ -38,10 +36,13 @@ export default class Login extends Vue {
   public username: string = '';
   public appName = appName;
   public currentWijsheid: AppWijsheid = { content: 'TegelViewer.vue wijsheid'};
+  public watchtest: string = 'foo';
 
-  public refresh() {
+  public async refresh() {
     dispatchGetWijsheid(this.$store);
-    //this.currentWijsheid = { content: "loading new wijsheid" };
+    // await this.setWijsheid({ content: 'refresh wijsheid' });
+    this.watchtest += "1";
+
   }
 
     public get firstWijsheid() {
@@ -56,10 +57,10 @@ export default class Login extends Vue {
         }
     }
 
-    @Watch('firstWijsheid')
+    @Watch('watchtest')
     public async onWijsheidChange(Wijsheid: AppWijsheid) {
         // await this.setWijsheid(Wijsheid);
-        this.currentWijsheid = Wijsheid;
+        this.currentWijsheid = { content: "watchtest fired" };
     }
 
 }
