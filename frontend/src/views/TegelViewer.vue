@@ -49,6 +49,10 @@ export default class Login extends Vue {
         return readWijsheid(this.$store);
     }
 
+    public get watchtestfn() {
+      return this.watchtest;
+    }
+
     public async setWijsheid(wijsheid: AppWijsheid | false) {
         if (wijsheid) {
             this.currentWijsheid = wijsheid;
@@ -57,10 +61,10 @@ export default class Login extends Vue {
         }
     }
 
-    @Watch('watchtest')
+    @Watch('watchtestfn')
     public async onWijsheidChange(Wijsheid: AppWijsheid) {
         // await this.setWijsheid(Wijsheid);
-        this.currentWijsheid = { content: "watchtest fired" };
+        this.currentWijsheid = { content: "watchtestfn fired" };
     }
 
 }
