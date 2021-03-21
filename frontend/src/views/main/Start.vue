@@ -17,7 +17,9 @@ const startRouteGuard = async (to, from, next) => {
       next();
     }
   } else if (readIsLoggedIn(store) === false) {
-    if (to.path === '/' || (to.path as string).startsWith('/main')) {
+    if (to.path === '/') {
+      next('/tegel-viewer');
+    } else if ((to.path as string).startsWith('/main')) {
       next('/login');
     } else {
       next();
