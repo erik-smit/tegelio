@@ -38,9 +38,20 @@ export default class Login extends Vue {
   public appName = appName;
   public currentWijsheid: AppWijsheid = { content: 'TegelViewer.vue wijsheid'};
   public watchtest: string = 'foo';
+  public timer: number = 0;
 
+  created() {
+    this.timer = setInterval(this.refresh, 60000)
+  }
+
+  beforeDestroy () {
+    clearInterval(this.timer)
+  }
+  
   public async refresh() {
     // TODO: use proper vuex store things
+    // TODO: or clean up vuex noise
+
     // dispatchGetWijsheid(this.$store);
     // await this.setWijsheid({ content: 'refresh wijsheid' });
     var wijsheid = api.getWijsheid();
