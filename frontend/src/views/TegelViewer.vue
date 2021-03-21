@@ -22,6 +22,7 @@
 </template>
 
 <script lang="ts">
+import { api } from '@/api';
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { AppWijsheid } from '@/store/main/state';
 import { readWijsheid } from '@/store/main/getters';
@@ -39,33 +40,35 @@ export default class Login extends Vue {
   public watchtest: string = 'foo';
 
   public async refresh() {
-    dispatchGetWijsheid(this.$store);
+    // TODO: use proper vuex store things
+    // dispatchGetWijsheid(this.$store);
     // await this.setWijsheid({ content: 'refresh wijsheid' });
-    this.watchtest += "1";
+    var wijsheid = api.getWijsheid();
+    await this.setWijsheid({ content: (await wijsheid).data.msg })
 
   }
 
-    public get firstWijsheid() {
-        return readWijsheid(this.$store);
-    }
+  public get firstWijsheid() {
+      return readWijsheid(this.$store);
+  }
 
-    public get watchtestfn() {
-      return this.watchtest;
-    }
+  public get watchtestfn() {
+    return this.watchtest;
+  }
 
-    public async setWijsheid(wijsheid: AppWijsheid | false) {
-        if (wijsheid) {
-            this.currentWijsheid = wijsheid;
-        } else {
-            this.currentWijsheid = { content: '' };
-        }
-    }
+  public async setWijsheid(wijsheid: AppWijsheid | false) {
+      if (wijsheid) {
+          this.currentWijsheid = wijsheid;
+      } else {
+          this.currentWijsheid = { content: '' };
+      }
+  }
 
-    @Watch('watchtestfn')
-    public async onWijsheidChange(Wijsheid: AppWijsheid) {
-        // await this.setWijsheid(Wijsheid);
-        this.currentWijsheid = { content: "watchtestfn fired" };
-    }
+  @Watch('firstWijsheid')
+  public async onWijsheidChange(Wijsheid: AppWijsheid) {
+      // await this.setWijsheid(Wijsheid);
+      this.currentWijsheid = { content: "watchtestfn fired" };
+  }
 
 }
 </script>
